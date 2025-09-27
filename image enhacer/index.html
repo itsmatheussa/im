@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageEnhancer - Melhore suas imagens com IA</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <i class="fas fa-magic"></i>
+                <span>ImageEnhancer</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features">Recursos</a>
+                <a href="#pricing">Preços</a>
+                <button class="btn btn-primary">Começar Grátis</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Transforme suas imagens com 
+                <span class="gradient-text">Inteligência Artificial</span>
+            </h1>
+            <p class="hero-subtitle">
+                Melhore resolução, corrija cores, remova ruídos e restaure detalhes 
+                perdidos em segundos com nossa tecnologia avançada de IA.
+            </p>
+            <div class="hero-cta">
+                <button class="btn btn-primary btn-large" onclick="openUploadModal()">
+                    <i class="fas fa-upload"></i>
+                    Melhorar Imagem Agora
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="scrollToDemo()">
+                    <i class="fas fa-play"></i>
+                    Ver Demonstração
+                </button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="image-preview">
+                <div class="before-after">
+                    <div class="before">
+                        <img src="https://via.placeholder.com/300x200/cccccc/666666?text=Antes" alt="Antes" id="demo-before">
+                        <span class="label">Antes</span>
+                    </div>
+                    <div class="after">
+                        <img src="https://via.placeholder.com/300x200/4f46e5/ffffff?text=Depois" alt="Depois" id="demo-after">
+                        <span class="label">Depois</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Recursos Poderosos</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Upscaling 4x</h3>
+                    <p>Aumente a resolução de suas imagens até 4x mantendo a qualidade e os detalhes originais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Restauração de Rostos</h3>
+                    <p>Melhore automaticamente rostos em fotos antigas ou de baixa qualidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-adjust"></i>
+                    </div>
+                    <h3>Correção de Cores</h3>
+                    <p>Corrija automaticamente brilho, contraste e saturação para resultados profissionais.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <h3>Remoção de Ruído</h3>
+                    <p>Elimine ruídos e artefatos de compressão para imagens mais limpas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Processamento Rápido</h3>
+                    <p>Resultados em segundos graças à nossa infraestrutura otimizada.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100% Seguro</h3>
+                    <p>Suas imagens são processadas localmente e nunca armazenadas em nossos servidores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Melhorar Imagem</h2>
+                <button class="close-btn" onclick="closeUploadModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="uploadArea" class="upload-area" onclick="triggerFileInput()">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Arraste sua imagem aqui</h3>
+                        <p>ou clique para selecionar</p>
+                        <div class="supported-formats">
+                            <span>Formatos suportados: JPG, PNG, WebP</span>
+                        </div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                </div>
+                
+                <div id="processingArea" class="processing-area" style="display: none;">
+                    <div class="processing-content">
+                        <div class="spinner"></div>
+                        <h3>Processando sua imagem...</h3>
+                        <p id="processingStatus">Iniciando processamento...</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="resultArea" class="result-area" style="display: none;">
+                    <div class="result-content">
+                        <h3>Resultado</h3>
+                        <div class="comparison-container">
+                            <div class="comparison-item">
+                                <h4>Original</h4>
+                                <img id="originalImage" alt="Original">
+                            </div>
+                            <div class="comparison-item">
+                                <h4>Melhorada</h4>
+                                <img id="enhancedImage" alt="Melhorada">
+                            </div>
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn btn-primary" onclick="downloadResult()">
+                                <i class="fas fa-download"></i>
+                                Baixar Resultado
+                            </button>
+                            <button class="btn btn-secondary" onclick="processNewImage()">
+                                <i class="fas fa-plus"></i>
+                                Nova Imagem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Planos e Preços</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Gratuito</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">0</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 3 imagens por dia</li>
+                        <li><i class="fas fa-check"></i> Upscaling até 2x</li>
+                        <li><i class="fas fa-check"></i> Watermark</li>
+                        <li><i class="fas fa-check"></i> Processamento básico</li>
+                    </ul>
+                    <button class="btn btn-outline">Começar Grátis</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Mais Popular</div>
+                    <div class="pricing-header">
+                        <h3>Pro</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">29</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 100 imagens por mês</li>
+                        <li><i class="fas fa-check"></i> Upscaling até 4x</li>
+                        <li><i class="fas fa-check"></i> Sem watermark</li>
+                        <li><i class="fas fa-check"></i> Processamento prioritário</li>
+                        <li><i class="fas fa-check"></i> Restauração de rostos</li>
+                        <li><i class="fas fa-check"></i> Suporte premium</li>
+                    </ul>
+                    <button class="btn btn-primary">Assinar Pro</button>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Business</h3>
+                        <div class="price">
+                            <span class="currency">R$</span>
+                            <span class="amount">99</span>
+                            <span class="period">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Imagens ilimitadas</li>
+                        <li><i class="fas fa-check"></i> Upscaling até 8x</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                        <li><i class="fas fa-check"></i> Processamento em lote</li>
+                        <li><i class="fas fa-check"></i> Suporte 24/7</li>
+                        <li><i class="fas fa-check"></i> Integração personalizada</li>
+                    </ul>
+                    <button class="btn btn-outline">Falar com Vendas</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-brand">
+                        <i class="fas fa-magic"></i>
+                        <span>ImageEnhancer</span>
+                    </div>
+                    <p>Transformando imagens com inteligência artificial</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Produto</h4>
+                        <a href="#features">Recursos</a>
+                        <a href="#pricing">Preços</a>
+                        <a href="#">API</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Suporte</h4>
+                        <a href="#">Central de Ajuda</a>
+                        <a href="#">Contato</a>
+                        <a href="#">Status</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Privacidade</a>
+                        <a href="#">Termos</a>
+                        <a href="#">Cookies</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ImageEnhancer. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
